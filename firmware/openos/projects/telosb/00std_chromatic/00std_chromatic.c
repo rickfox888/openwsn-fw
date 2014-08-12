@@ -15,6 +15,16 @@
 #include "msp430f1611.h"
 #include "stdint.h"
 
-int main(void) {
-   // TODO
+//#include <msp430.h>
+
+int main(void)
+{
+  WDTCTL = WDTPW + WDTHOLD;                 // Stop WDT
+  P2DIR |= 0x08;                            // P2.3 output
+  P2SEL |= 0x08;                            // P2.3 option select
+  CCTL0 = OUTMOD_4;                         // CCR0 toggle mode
+  CCR0 = 100;
+  TACTL = TASSEL_1 + MC_3;                  // ACLK, up-downmode
+
+  _BIS_SR(LPM3_bits);                       // Enter LPM3
 }
